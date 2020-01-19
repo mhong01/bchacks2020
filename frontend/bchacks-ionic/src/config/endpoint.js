@@ -6,4 +6,4 @@ export const RADAR_TOKEN =
 
 export const FIREBASE_FUNC_URL =
   "https://console.firebase.google.com/project/cool-phalanx-265623";
-export const API_GET_NOTIFIER = FIREBASE_FUNC_URL + "/notifier";
+export const API_GET_NOTIFIER = FIREBASE_FUNC_URL + "/getNotifier";

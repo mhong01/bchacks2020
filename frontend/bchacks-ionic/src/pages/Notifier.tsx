@@ -36,11 +36,11 @@ class NotifiersPage extends React.Component<any, any, any> {
 
   async componentDidMount() {
     let users = await axios.get(
-      API_GET_NOTIFIER + "?userId" + state.userId,
+      API_GET_NOTIFIER + "?userId=" + state.userId,
       {}
     );
 
-    // this.setState()
+    this.setState({ notifiers: users });
   }
 
   ShowMapPage() {
@@ -50,6 +50,42 @@ class NotifiersPage extends React.Component<any, any, any> {
 
   render() {
     const num = Math.floor(Math.random() * 100 + 1);
+    let content = [];
+
+    console.log(this.state);
+
+    for (let item in this.state.notifiers) {
+      content.push(
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar
+              alt="Remy Sharp"
+              src={
+                "https://api.adorable.io/avatars/" +
+                num.toString() +
+                "/abott@adorable.png"
+              }
+            />
+          </ListItemAvatar>
+          <ListItemText
+            primary="Brunch this weekend?"
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  color="textPrimary"
+                >
+                  Ali Connors
+                </Typography>
+                {" — I'll be in your neighborhood doing errands this…"}
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+      );
+      content.push(<Divider variant="inset" component="li" />);
+    }
 
     return (
       <div
@@ -65,36 +101,7 @@ class NotifiersPage extends React.Component<any, any, any> {
             maxWidth: 500
           }}
         >
-          <List>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar
-                  alt="Remy Sharp"
-                  src={
-                    "https://api.adorable.io/avatars/" +
-                    num.toString() +
-                    "/abott@adorable.png"
-                  }
-                />
-              </ListItemAvatar>
-              <ListItemText
-                primary="Brunch this weekend?"
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      color="textPrimary"
-                    >
-                      Ali Connors
-                    </Typography>
-                    {" — I'll be in your neighborhood doing errands this…"}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-          </List>
+          <List></List>
 
           <div
             style={{
