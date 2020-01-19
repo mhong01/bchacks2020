@@ -163,6 +163,33 @@ export const addNotifier = (userId: string, memberId: string) => {
   });
 };
 
+// --------------------------------------------------------------------
+export const getNotifierEndpoint = functions.https.onRequest(
+  async (request, response) => {
+    await connect();
+
+    const users = await getNotifier(request.query.userId);
+
+    client.close();
+    response.send(JSON.stringify(users));
+  }
+);
+
+export const getNotifier = (userId: string) => {
+  return new Promise(async (resolve, reject) => {
+    const docs: any = await getNotifications(userId);
+    console.log("Got it");
+    console.log(docs);
+
+    if (docs.length === 0) {
+      resolve([]);
+    } else {
+      const users = getUsers(docs[0]["notifiers"]);
+      resolve(users);
+    }
+  });
+};
+
 // const docs = await getNotifications("Td9lkJZnveRURQAyBNrmQz1JEBj2");
 
 // const docs = await getUsers([
