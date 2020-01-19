@@ -20,7 +20,11 @@ export class MapContainer extends Component {
     super(props);
     this.mapClicked = this.mapClicked.bind(this);
     this.state = {
-      places: []
+      places: [],
+      marker: {
+        lat: 49.942202,
+        lng: -119.395933
+      }
     };
   }
 
@@ -61,6 +65,12 @@ export class MapContainer extends Component {
     const lng = clickEvent.latLng.lng();
 
     console.log(lat, lng);
+    
+    this.setState({
+        marker: {
+            lat, lng
+        }
+    })
     // call API to track users
     axios.defaults.headers = {
       "Content-Type": "application/json",
@@ -104,9 +114,8 @@ export class MapContainer extends Component {
         style={style}
         zoom={14}
         initialCenter={{
-          lat: 49.942202,
-          lng: -119.395933
-        }}
+            lat: 49.942202,
+            lng: -119.395933}}
         onClick={this.mapClicked}
       >
         <Polygon
@@ -118,7 +127,10 @@ export class MapContainer extends Component {
           fillColor="#0000FF"
           fillOpacity={0.35}
         />
-        <Marker onClick={this.onMarkerClick} name={"Current location"} />
+        <Marker 
+            onClick={this.onMarkerClick} name={"Current location"}
+            position={this.state.marker}
+             />
       </Map>
     );
   }
