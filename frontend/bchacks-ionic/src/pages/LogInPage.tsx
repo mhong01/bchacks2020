@@ -9,7 +9,8 @@ class LoginPage extends React.Component<any, any, any>
 {
 	constructor(props: any) {
 		super(props);
-
+		this.OnSignIn = this.OnSignIn.bind(this);
+		
 		this.state = {
 			// errorMsg: null,
             // isLoggedIn: false,
@@ -17,7 +18,7 @@ class LoginPage extends React.Component<any, any, any>
 			to: "/maps"
         }
         
-		this.ShowMapPage = this.ShowMapPage.bind(this);
+		// this.ShowMapPage = this.ShowMapPage.bind(this);
 	}
 
 	componentWillMount() {
@@ -26,8 +27,10 @@ class LoginPage extends React.Component<any, any, any>
 	componentDidMount() {
 	}
 
-	async OnSignIn() {
-		let emptyMsg: string = "";
+	OnSignIn() {
+		console.log("Implement Login logic here");
+		this.props.history.push('/home');
+		// let emptyMsg: string = "";
 		// if ((this.state.email == null || this.state.email.trim() === "")
 		// 	|| (this.state.password == null || this.state.password.trim() === "")) {
 		// 	emptyMsg = "Invalid input!";
@@ -47,11 +50,12 @@ class LoginPage extends React.Component<any, any, any>
 		// 	}
 		// }
     }
-    
-    ShowMapPage(){
-        this.setState({redirectToReferrer: true});
-		this.setState({to: "/maps"});
-    }
+	
+	
+    // ShowMapPage(){
+    //     this.setState({redirectToReferrer: true});
+	// 	this.setState({to: "/maps"});
+    // }
 
 	render() {
 		let content = null;
@@ -94,7 +98,7 @@ class LoginPage extends React.Component<any, any, any>
 							fullWidth
 							variant="contained"
 							color="primary"
-							onClick={this.ShowMapPage}>
+							onClick={this.OnSignIn}>
 							Sign In
 						</Button>
 						{(this.state.errorMsg != null && <div>{this.state.errorMsg}</div>)}

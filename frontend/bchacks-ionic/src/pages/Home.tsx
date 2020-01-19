@@ -11,7 +11,8 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <LoginPage/>
+        <p>Home - implement Home page</p>
+        {/* <LoginPage/> */}
       </IonContent>
     </IonPage>
   );
