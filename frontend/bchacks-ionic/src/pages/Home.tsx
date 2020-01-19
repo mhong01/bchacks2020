@@ -1,7 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
 import LoginPage from './LogInPage';
-
+import Drawer from "../components/Drawer";
 const Home: React.FC = () => {
   return (
     <IonPage>
@@ -11,8 +11,9 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <p>Home - implement Home page</p>
+        <Drawer></Drawer>
         {/* <LoginPage/> */}
+
       </IonContent>
     </IonPage>
   );
