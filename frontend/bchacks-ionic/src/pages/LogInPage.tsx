@@ -11,10 +11,13 @@ class LoginPage extends React.Component<any, any, any>
 		super(props);
 
 		this.state = {
-			errorMsg: null,
-			isLoggedIn: false
-		}
-		this.OnSignIn = this.OnSignIn.bind(this);
+			// errorMsg: null,
+            // isLoggedIn: false,
+            redirectToReferrer: false,
+			to: "/maps"
+        }
+        
+		this.ShowMapPage = this.ShowMapPage.bind(this);
 	}
 
 	componentWillMount() {
@@ -43,7 +46,12 @@ class LoginPage extends React.Component<any, any, any>
 		// 		this.setState({isLoggedIn: true})
 		// 	}
 		// }
-	}
+    }
+    
+    ShowMapPage(){
+        this.setState({redirectToReferrer: true});
+		this.setState({to: "/maps"});
+    }
 
 	render() {
 		let content = null;
@@ -86,7 +94,7 @@ class LoginPage extends React.Component<any, any, any>
 							fullWidth
 							variant="contained"
 							color="primary"
-							onClick={this.OnSignIn}>
+							onClick={this.ShowMapPage}>
 							Sign In
 						</Button>
 						{(this.state.errorMsg != null && <div>{this.state.errorMsg}</div>)}

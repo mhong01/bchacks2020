@@ -24,6 +24,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 // var RadarModule = require('./RadarModule');
 import HttpRequests from './Requests';
+import MapPage from './pages/MapComponent';
 
 const App: React.FC = () => (
   <IonApp>
@@ -34,6 +35,7 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route path="/home" component={Home} exact={true} />
         <Route exact path="/" render={() => <Redirect to="/home" />} />
+        <Route path="/maps" component={MapPage}/>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
