@@ -2,6 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import React from 'react';
 import LoginPage from './LogInPage';
 import Drawer from "../components/Drawer";
+import MapContainer from "../lib/googleApi";
 const Home: React.FC = () => {
   return (
     <IonPage>
@@ -12,8 +13,9 @@ const Home: React.FC = () => {
       </IonHeader>
       <IonContent className="ion-padding">
         <Drawer></Drawer>
-        {/* <LoginPage/> */}
-
+        {/* GOOGLE MAP */}
+        <MapContainer></MapContainer>
+        <p style={{'marginTop' : "-20px"}}>Demo: When user moves around</p>
       </IonContent>
     </IonPage>
   );
