@@ -22,16 +22,20 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-// import {RadarModule} from './RadarModule';
-var RadarModule = require('./RadarModule');
+// var RadarModule = require('./RadarModule');
+import HttpRequests from './Requests';
+import MapPage from './pages/MapComponent';
+
 const App: React.FC = () => (
   <IonApp>
-      <script src="https://js.radar.io/v1.1.0/radar.min.js" integrity="sha384-9gzMIZTQDnuwordlQUv+j9r2TDNLAaKXhSk+p/1jZV0tlnDQ8Bu6YVmTbLIG+dRg"></script>
-      <div> {RadarModule.RadarModule()}</div>
+      {/* <script src="https://js.radar.io/v1.1.0/radar.min.js" integrity="sha384-9gzMIZTQDnuwordlQUv+j9r2TDNLAaKXhSk+p/1jZV0tlnDQ8Bu6YVmTbLIG+dRg"></script>
+      <div> {RadarModule.RadarModule()}</div> */}
+        
     <IonReactRouter>
       <IonRouterOutlet>
         <Route path="/home" component={Home} exact={true} />
         <Route exact path="/" render={() => <Redirect to="/home" />} />
+        <Route path="/maps" component={MapPage}/>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
