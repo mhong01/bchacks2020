@@ -3,6 +3,10 @@ import {
 	Container, Button, Typography, TextField, FormControlLabel,
 	Checkbox, Grid, Link
 } from '@material-ui/core';
+import axios from 'axios';
+import { 
+	RADAR_ROOT_URL, RADAR_TOKEN, API_GEOFENCES_URL
+} from '../config/endpoint';
 import Home from './Home';
 
 class LoginPage extends React.Component<any, any, any>
@@ -15,7 +19,8 @@ class LoginPage extends React.Component<any, any, any>
 			// errorMsg: null,
             // isLoggedIn: false,
             redirectToReferrer: false,
-			to: "/maps"
+			to: "/maps",
+			geofences: []
         }
         
 		// this.ShowMapPage = this.ShowMapPage.bind(this);
@@ -25,11 +30,25 @@ class LoginPage extends React.Component<any, any, any>
 	}
 
 	componentDidMount() {
+		// example to call Radar API
+		axios.defaults.headers = {
+			'Content-Type': 'application/json',
+			Authorization: RADAR_TOKEN
+		};
+	
+		axios.get(API_GEOFENCES_URL , {})
+		.then(res => {
+			console.log("res", res);
+            
+        }).catch(err => {
+            console.log("ERR: " + err);
+        });
 	}
 
 	OnSignIn() {
 		console.log("Implement Login logic here");
 		this.props.history.push('/home');
+
 		// let emptyMsg: string = "";
 		// if ((this.state.email == null || this.state.email.trim() === "")
 		// 	|| (this.state.password == null || this.state.password.trim() === "")) {
