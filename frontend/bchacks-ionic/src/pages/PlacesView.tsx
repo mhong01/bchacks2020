@@ -12,7 +12,7 @@ import Drawer from "../components/Drawer";
 
 export default class PlacesView extends React.Component{
 
-    private places : Array<any>;
+    private places : Array<PlaceModel>;
     constructor(props:any){
         super(props);
 
@@ -57,7 +57,6 @@ export default class PlacesView extends React.Component{
     componentDidMount(){
         // this.places = this.getAllGeofences();
         this.getAllGeofences();
-        console.log(this.places);
     }
 
     componentWillMount(){
@@ -67,12 +66,18 @@ export default class PlacesView extends React.Component{
     }
 
     render(){
+        console.log(this.places)
         return(
             <div>
                 <Drawer></Drawer>
-                {this.places != null ? <Grid>{this.places.map(place => (
-                    <Grid item xs={6}>{place.description}</Grid>
-                ))}</Grid> : <p>There is no update right now</p>}
+                {console.log(this.places)}
+                {/* {() => {
+                    this.places.forEach(element => {
+                        console.log(element.description);
+                        // <p>{element.tag}</p>
+                    })
+                }} */}
+                
                 
             </div>
         );
