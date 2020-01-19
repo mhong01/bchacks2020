@@ -16,6 +16,9 @@ import {
   ListItemText,
   Divider
 } from "@material-ui/core";
+import axios from "axios";
+import { API_GET_NOTIFIER } from "../config/endpoint";
+import { state } from "../state";
 
 class NotifiersPage extends React.Component<any, any, any> {
   constructor(props: any) {
@@ -31,7 +34,14 @@ class NotifiersPage extends React.Component<any, any, any> {
 
   componentWillMount() {}
 
-  componentDidMount() {}
+  async componentDidMount() {
+    let users = await axios.get(
+      API_GET_NOTIFIER + "?userId" + state.userId,
+      {}
+    );
+
+    // this.setState()
+  }
 
   ShowMapPage() {
     this.setState({ redirectToReferrer: true });
