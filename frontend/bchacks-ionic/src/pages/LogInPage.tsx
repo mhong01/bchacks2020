@@ -108,7 +108,7 @@ class LoginPage extends React.Component<any, any, any> {
 
         console.log("yesss");
         console.log(user);
-        this.ShowMapPage();
+        // this.ShowMapPage();
       })
       .catch(function(error) {
         // Handle Errors here.
