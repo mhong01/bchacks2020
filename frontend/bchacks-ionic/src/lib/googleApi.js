@@ -1,4 +1,4 @@
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import { Map, Polygon, Marker, GoogleApiWrapper } from "google-maps-react";
 import React from "react";
 import { Component } from "react";
 import {
@@ -19,6 +19,40 @@ export class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.mapClicked = this.mapClicked.bind(this);
+    this.state = {
+      places: []
+    };
+  }
+
+  componentDidMount() {
+    // get list of geo fences
+
+    const geoId = "5e248633676d6401297f05ca";
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: RADAR_TOKEN
+    };
+
+    axios
+      .get(API_GEOFENCES_URL + "/" + geoId, {})
+      .then(res => {
+        console.log("geo", res);
+
+        const tempCordinates = res.data.geofence.geometry.coordinates[0];
+        const cordinates = tempCordinates.map(value => {
+          return {
+            lat: value[1],
+            lng: value[0]
+          };
+        });
+
+        this.setState({
+          places: cordinates
+        });
+      })
+      .catch(err => {
+        console.log("ERR: " + err);
+      });
   }
 
   mapClicked(mapProps, map, clickEvent) {
@@ -75,6 +109,15 @@ export class MapContainer extends Component {
         }}
         onClick={this.mapClicked}
       >
+        <Polygon
+          paths={this.state.places}
+          strokeColor="#0000FF"
+          strokeOpacity={0.8}
+          // strokeWeight={2}
+          onClick={this.mapClicked}
+          fillColor="#0000FF"
+          fillOpacity={0.35}
+        />
         <Marker onClick={this.onMarkerClick} name={"Current location"} />
       </Map>
     );
