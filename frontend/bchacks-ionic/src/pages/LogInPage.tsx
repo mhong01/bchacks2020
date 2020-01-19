@@ -70,6 +70,9 @@ class LoginPage extends React.Component<any, any, any> {
   }
 
   async OnSignIn() {
+    this.props.history.push("/home");
+  }
+  async OnSignInWithGoogle() {
     let emptyMsg: string = "";
     // if ((this.state.email == null || this.state.email.trim() === "")
     // 	|| (this.state.password == null || this.state.password.trim() === "")) {
