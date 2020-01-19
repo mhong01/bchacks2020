@@ -6,7 +6,9 @@ const dbName = "YouCare";
 const usersCollection = "users";
 const notificationsCollection = "notifications";
 
-var cors = require("cors");
+const cors = require("cors")();
+
+// const cors = require("cors")({ origin: false });
 
 // Connection URL
 const uri =
@@ -16,7 +18,7 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true
 });
 
-async function connect() {
+export async function connect() {
   return new Promise((resolve, reject) => {
     client.connect(err => {
       if (err === null) {
@@ -26,6 +28,10 @@ async function connect() {
       }
     });
   });
+}
+
+export async function close() {
+  client.close();
 }
 
 export const getUsers = (users: string[]) => {
@@ -132,7 +138,7 @@ export const addMember = (userId: string, memberId: string) => {
 export const addNotifierEndpoint = functions.https.onRequest(
   async (request, response) => {
     response.set("Access-Control-Allow-Origin", "*");
-    response.set("Access-Control-Allow-Methods", "GET, POST");
+    response.set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
     await connect();
 
     console.log("2");
@@ -174,11 +180,15 @@ export const addNotifier = (userId: string, memberId: string) => {
 // --------------------------------------------------------------------
 export const getNotifierEndpoint = functions.https.onRequest(
   async (request, response) => {
-    return cors(request, response, async () => {
+    cors(request, response, async () => {
       await connect();
 
-      (request as any).set("Access-Control-Allow-Origin", "*");
-      (request as any).set("Access-Control-Allow-Methods", "GET, POST");
+      response.set("Access-Control-Allow-Origin", "*");
+      response.set(
+        "Access-Control-Allow-Methods",
+        "GET,PUT,POST,DELETE,OPTIONS"
+      );
+
       const users = await getNotifier(request.query.userId);
 
       client.close();
@@ -186,6 +196,20 @@ export const getNotifierEndpoint = functions.https.onRequest(
     });
   }
 );
+
+// export const getNotifierEndpoint = functions.https.onRequest(
+//   async (request, response) => {
+//     await connect();
+
+//     response.set("Access-Control-Allow-Origin", "*");
+//     response.set("Access-Control-Allow-Methods", "GET, POST");
+
+//     const users = await getNotifier(request.query.userId);
+
+//     client.close();
+//     response.send(JSON.stringify(users));
+//   }
+// );
 
 export const getNotifier = (userId: string) => {
   return new Promise(async (resolve, reject) => {

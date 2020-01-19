@@ -19,6 +19,7 @@ import {
 import axios from "axios";
 import { API_GET_NOTIFIER } from "../config/endpoint";
 import { state } from "../state";
+import { getNotifier } from "../Controllers/data";
 
 class NotifiersPage extends React.Component<any, any, any> {
   constructor(props: any) {
@@ -35,10 +36,7 @@ class NotifiersPage extends React.Component<any, any, any> {
   componentWillMount() {}
 
   async componentDidMount() {
-    let users = await axios.get(
-      API_GET_NOTIFIER + "?userId=" + state.userId,
-      {}
-    );
+    const users = await getNotifier(state.userId);
 
     this.setState({ notifiers: users });
   }
