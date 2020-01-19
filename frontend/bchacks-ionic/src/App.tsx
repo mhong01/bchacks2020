@@ -25,11 +25,12 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 // var RadarModule = require('./RadarModule');
 import HttpRequests from "./Requests";
-import MapPage from "./pages/MapComponent";
+// import MapPage from "./pages/MapComponent";
 
 import * as firebase from "firebase";
 import NotifiersPage from "./pages/Notifier";
-import AddMePage from "./pages/AddMe";
+import PlacesView from "./pages/PlacesView";
+// import AddMePage from "./pages/AddMe";
 
 const App: React.FC = () => (
   <IonApp>
@@ -41,9 +42,10 @@ const App: React.FC = () => (
         <Route path="/login" component={Login} exact={true} />
         <Route path="/home" component={Home} exact={true} />
         <Route exact path="/" render={() => <Redirect to="/login" />} />
-        <Route path="/maps" component={MapPage} />
+        {/* <Route path="/maps" component={MapPage} /> */}
         <Route path="/notifier" component={NotifiersPage} />
-        <Route path="/addme" component={AddMePage} />
+        <Route path="/places" component={PlacesView} />
+        {/* <Route path="/addme" component={AddMePage} /> */}
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
