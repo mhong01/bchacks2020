@@ -31,7 +31,6 @@ import * as firebase from "firebase";
 import NotifiersPage from "./pages/Notifier";
 import PlacesView from "./pages/PlacesView";
 // import AddMePage from "./pages/AddMe";
-
 const App: React.FC = () => (
   <IonApp>
     {/* <script src="https://js.radar.io/v1.1.0/radar.min.js" integrity="sha384-9gzMIZTQDnuwordlQUv+j9r2TDNLAaKXhSk+p/1jZV0tlnDQ8Bu6YVmTbLIG+dRg"></script>

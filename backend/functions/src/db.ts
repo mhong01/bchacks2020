@@ -6,6 +6,8 @@ const dbName = "YouCare";
 const usersCollection = "users";
 const notificationsCollection = "notifications";
 
+var cors = require("cors");
+
 // Connection URL
 const uri =
   "mongodb+srv://bot:thisisPDmb59%21@cluster0-8rmhl.gcp.mongodb.net/test?retryWrites=true&w=majority";
@@ -64,6 +66,8 @@ export const getNotifications = userId => {
 
 export const addUserEndpoint = functions.https.onRequest(
   async (request, response) => {
+    response.set("Access-Control-Allow-Origin", "*");
+    response.set("Access-Control-Allow-Methods", "GET, POST");
     await connect();
 
     const user: User = {
@@ -91,6 +95,8 @@ export const addUser = (user: User) => {
 // --------------------------------------------------------------------
 export const addMemberEndpoint = functions.https.onRequest(
   async (request, response) => {
+    response.set("Access-Control-Allow-Origin", "*");
+    response.set("Access-Control-Allow-Methods", "GET, POST");
     await connect();
 
     await addMember(request.query.userId, request.query.memberId);
@@ -125,6 +131,8 @@ export const addMember = (userId: string, memberId: string) => {
 // --------------------------------------------------------------------
 export const addNotifierEndpoint = functions.https.onRequest(
   async (request, response) => {
+    response.set("Access-Control-Allow-Origin", "*");
+    response.set("Access-Control-Allow-Methods", "GET, POST");
     await connect();
 
     console.log("2");
@@ -166,12 +174,16 @@ export const addNotifier = (userId: string, memberId: string) => {
 // --------------------------------------------------------------------
 export const getNotifierEndpoint = functions.https.onRequest(
   async (request, response) => {
-    await connect();
+    return cors(request, response, async () => {
+      await connect();
 
-    const users = await getNotifier(request.query.userId);
+      (request as any).set("Access-Control-Allow-Origin", "*");
+      (request as any).set("Access-Control-Allow-Methods", "GET, POST");
+      const users = await getNotifier(request.query.userId);
 
-    client.close();
-    response.send(JSON.stringify(users));
+      client.close();
+      response.send(JSON.stringify(users));
+    });
   }
 );
 
