@@ -1,2 +1,4 @@
 export { sendNotificationsEndpont as sendNotifications } from "./notification";
-export { addUserToNotificationEndpont as addUserToNotification } from "./db";
+export { addUserEndpoint as addUser } from "./db";
+export { addMemberEndpoint as addMember } from "./db";
+export { addNotifierEndpoint as addNotifier } from "./db";
